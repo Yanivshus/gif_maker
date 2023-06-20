@@ -20,7 +20,7 @@ typedef struct FrameNode
 	struct FrameNode* next;
 } FrameNode;
 
-FrameNode* addFrameNode(FrameNode* head);
+void addFrameNode(FrameNode** head);
 //void deleteLinkedList(FrameNode* head);
 //FrameNode* findFrame(FrameNode* head);
 //FrameNode* deleteFrame(FrameNode* head);

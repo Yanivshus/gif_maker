@@ -1,8 +1,10 @@
 #include "linkedList.h"
+#define _CRT_SECURE_NO_DEPRECATE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #define STR_LEN 1024
+
 
 /*
 this is a function to get a string from the user , it gets the size of the string and the char array
@@ -32,21 +34,26 @@ int checkIfInList(char* name, FrameNode* head)
 	}
 	return 0;
 }
+
 /*
-This function crates a frame node with the frame data: path, duration, name.
-input: none.
-output: pointer to the frame struct.
+This function crates a frame node with the frame data: path, duration, name and adds it to the linked list.
+input: heaed - pointer to the head of the list.
+output: pointer to the head of the list.
 */
-FrameNode* addFrameNode(FrameNode* head)
+void addFrameNode(FrameNode** head)
 {
-	int nameValidOrNot = 1;
-	int pathValidOrNot = 1;
-	char pathToCheck[STR_LEN] = { 0 };
-	char nameToCheck[STR_LEN] = { 0 };
+	int nameValidOrNot = 0;
+	int pathValidOrNot = 0;
+	FILE* frameFile = NULL;
 	FrameNode* newNode = (FrameNode*)malloc(sizeof(FrameNode));
+	newNode->frame = (Frame*)malloc(sizeof(Frame));
+	// mallocating memory for the name of the frame and it's path.
 	newNode->frame->name = (char*)malloc(STR_LEN);
 	newNode->frame->path = (char*)malloc(STR_LEN);
-	if(newNode || newNode->frame->name || newNode->frame->path)
+	// checking if the malloces worked.
+	// || newNode->frame ||newNode->frame->name || newNode->frame->path
+	// problem with the mallocs
+	if(newNode)
 	{
 		printf("malloc didn't worked! (createNode)");
 	}
@@ -54,20 +61,54 @@ FrameNode* addFrameNode(FrameNode* head)
 	{
 		printf("Please insert frame path:\n");
 		myFgets(newNode->frame->path, STR_LEN);
-		printf("Please insert frame duration<in milliseconds>:\n");
-		scanf("%d", newNode->frame->duration);
+		// chacking if the file exists.
+		if(fopen(newNode->frame->path, "rb") != NULL)
+		{
+			pathValidOrNot++;
+		}
+
+		//gettting the duration from the user.
+		printf("Please insert frame duration(in milliseconds):\n");
+		scanf("%u", newNode->frame->duration);
 		getchar();
+
 		printf("Please choose a name for that frame: \n");
-		myFgets(nameToCheck, STR_LEN);
-		nameValidOrNot = checkIfInList(nameToCheck, head);
-		while(nameValidOrNot == 1)
+		myFgets(newNode->frame->name, STR_LEN);
+		nameValidOrNot = checkIfInList(newNode->frame->name, *head);
+		// checking if name is already on the list, if yes it will ask the user to enter other name.
+		while (nameValidOrNot == 0)
 		{
 			printf("The name is already taken, please enter another name\n");
-			myFgets(nameToCheck, STR_LEN);
-			nameValidOrNot = checkIfInList(nameToCheck, head);
+			myFgets(newNode->frame->name, STR_LEN);
+			nameValidOrNot = checkIfInList(newNode->frame->name, *head);
 		}
-		strncpy(newNode->frame->name, nameToCheck, STR_LEN);
+		newNode->next = NULL;
+	}
 
+	if(pathValidOrNot == 0)
+	{
+		printf("Can't find file! Frame will not be added\n");
+		free(newNode->frame->name);
+		free(newNode->frame->path);
+		free(newNode);
+	}
+	else
+	{
+		if(*head == NULL)
+		{
+			*head = newNode;
+		}
+		else
+		{
+			FrameNode* lastNode = *head;
+
+			while(lastNode->next != NULL)
+			{
+				lastNode = lastNode->next;
+			}
+
+			lastNode->next = newNode;
+		}
 	}
 }
 
