@@ -64,6 +64,7 @@ void addFrameNode(FrameNode** head)
 		if(frameFile = fopen(newNode->frame->path, "rb"))
 		{
 			pathValidOrNot++;
+			fclose(frameFile);
 		}
 
 		//gettting the duration from the user.
