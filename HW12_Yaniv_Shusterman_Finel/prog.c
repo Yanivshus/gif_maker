@@ -18,7 +18,7 @@ void printMenu();
 
 int main(void)
 {
-	int choiceMenu = 1, loadOrNew = 0, exists = 0, index = 0;
+	int choiceMenu = 1, loadOrNew = 0, exists = 0, index = 0, listLength = 0;
 	unsigned int newDuration = 0;
 	char nameFrame[STR_LEN] = { 0 };
 	FrameNode* head = NULL;
@@ -80,10 +80,32 @@ int main(void)
 			case 3:
 				printf("Enter the name of the frame\n");
 				myFgets(nameFrame, STR_LEN);
-				printf("Enter the new index in the movie you wish to place the frame\n");
-				scanf("%d", &index);
-				getchar();
-				changeFramePosition(&head, index, nameFrame);
+				exists = checkIfInList(nameFrame, head);
+				// if the name exits in the list we will continue.
+				if (exists == 1)
+				{
+					listLength = findListLength(&head);
+					printf("Enter the new index in the movie you wish to place the frame\n");
+					// checking if the index in the list is valid and under the length of the list.
+					do
+					{
+						scanf("%d", &index);
+						getchar();
+						// printing error massages.
+						if (index > listLength || index < 0)
+						{
+							printf("The movie contains only %d frames!\n", listLength);
+							printf("Enter the new index in the movie you wish to place the frame\n");
+						}
+						// looping until the valid value will be entered.
+					} while (index > listLength || index < 0);
+					changeFramePosition(&head, index, nameFrame);
+				}
+				// if the name doesn't exists we will print the right massage to the user.
+				else
+				{
+					printf("this frame does not exist\n");
+				}
 				break;
 			case 4:
 				// changing the duration of a specific frame.
@@ -115,6 +137,7 @@ int main(void)
 				printFrames(head);
 				break;
 			case 7:
+				// playing the video.
 				play(head);
 				break;
 			default:

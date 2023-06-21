@@ -234,7 +234,16 @@ void changeAllDuration(FrameNode** head, int newDuration)
 	}
 }
 
-/**/
+/*
+This function checnges the entered frame position by an entered index.
+example:
+1->2->3->4 with index = 2 and the frame name is 1 will be:
+2->1->3->4
+input: head - pinter to the pointer to the head of the list.
+		newLocation - the index the frame will move to.
+		frameToMove - name of the frame you want to move.
+output: none.
+*/
 void changeFramePosition(FrameNode** head, int newLocation, char* frameToMove)
 {
 	FrameNode* curr = *head;
@@ -289,4 +298,21 @@ void changeFramePosition(FrameNode** head, int newLocation, char* frameToMove)
 		*head = nodeToMove;
 	}
 
+}
+
+/*
+this function returns the length of the list.
+input: head - pinter to the pointer to the head of the list.
+output: the length of the list.
+*/
+int findListLength(FrameNode** head)
+{
+	FrameNode* curr = *head;
+	int length = 0;
+	while(curr)
+	{
+		length++;
+		curr = curr->next;
+	}
+	return length;
 }
