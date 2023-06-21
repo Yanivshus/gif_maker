@@ -12,22 +12,24 @@
 #include "view.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdlib.h>
 
 void printMenu();
 
 int main(void)
 {
-	int choiceMenu = 1, loadOrSave = 0, exists = 0;
+	int choiceMenu = 1, loadOrNew = 0, exists = 0;
 	unsigned int newDuration = 0;
 	char nameFrame[STR_LEN] = { 0 };
 	FrameNode* head = NULL;
 	printf("Welcome to Magshimim Movie Maker! what would you like to do?\n");
 	printf(" [0] Create a new project\n [1] Load existing project\n");
-	scanf("%d", &loadOrSave);
+	scanf("%d", &loadOrNew);
 	getchar();
+	// checking if the user want to load the project or create a new one.
 	do
 	{
-		switch (loadOrSave)
+		switch (loadOrNew)
 		{
 		case 0:
 			printf("\n");
@@ -36,14 +38,15 @@ int main(void)
 			printf("\n");
 			break;
 		default:
+			// if the user entered the invalid unput it will ask him again 1 or 0.
 			printf("Invalid choice, try again:\n");
 			printf(" [0] Create a new project\n [1] Load existing project\n");
-			scanf("%d", &loadOrSave);
+			scanf("%d", &loadOrNew);
 			getchar();
 			break;
 		}
-	} while (loadOrSave < 0 || loadOrSave > 1);
-
+	} while (loadOrNew < 0 || loadOrNew > 1);
+	// the actual menu loop.
 	do
 	{
 		printMenu();
@@ -102,6 +105,9 @@ int main(void)
 			case 6:
 				//printing the frames.
 				printFrames(head);
+				break;
+			case 7:
+				play(head);
 				break;
 			default:
 				//didn't type the choice number right.
