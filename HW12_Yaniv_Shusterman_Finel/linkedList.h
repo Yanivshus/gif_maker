@@ -3,6 +3,7 @@
 
 #define FALSE 0
 #define TRUE !FALSE
+#define STR_LEN 1024
 
 // Frame struct
 typedef struct Frame
@@ -21,7 +22,7 @@ typedef struct FrameNode
 } FrameNode;
 
 void addFrameNode(FrameNode** head);
-//void deleteLinkedList(FrameNode* head);
+int deleteFrame(FrameNode** head, char* nameOfFrame);
 //FrameNode* findFrame(FrameNode* head);
 //FrameNode* deleteFrame(FrameNode* head);
 //FrameNode* changeFramePosition(FrameNode* head, int newLocation);
@@ -30,5 +31,6 @@ void addFrameNode(FrameNode** head);
 void printFrames(FrameNode* head);
 void myFgets(char str[], int n);
 int checkIfInList(char* name, FrameNode* head);
+void freeList(FrameNode** head);
 
 #endif

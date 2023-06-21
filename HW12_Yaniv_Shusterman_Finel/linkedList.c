@@ -31,13 +31,14 @@ int checkIfInList(char* name, FrameNode* head)
 		{
 			return 1;
 		}
+		curr = curr->next;
 	}
 	return 0;
 }
 
 /*
 This function crates a frame node with the frame data: path, duration, name and adds it to the linked list.
-input: heaed - pointer to the head of the list.
+input: heaed - pointer to the pointer of the head of the list.
 output: pointer to the head of the list.
 */
 void addFrameNode(FrameNode** head)
@@ -50,6 +51,7 @@ void addFrameNode(FrameNode** head)
 	// mallocating memory for the name of the frame and it's path.
 	newNode->frame->name = (char*)malloc(STR_LEN * sizeof(char));
 	newNode->frame->path = (char*)malloc(STR_LEN * sizeof(char));
+	// checking if all mallocs worked.
 	if(newNode == NULL || newNode->frame == NULL ||newNode->frame->name == NULL || newNode->frame->path == NULL)
 	{
 		printf("malloc didn't worked! (createNode)");
@@ -62,7 +64,6 @@ void addFrameNode(FrameNode** head)
 		if(frameFile = fopen(newNode->frame->path, "rb"))
 		{
 			pathValidOrNot++;
-			printf("vsddfbd");
 		}
 
 		//gettting the duration from the user.
@@ -83,7 +84,7 @@ void addFrameNode(FrameNode** head)
 
 		newNode->next = NULL;
 	}
-
+	// if the path isn't valid i won't add the frame.
 	if(pathValidOrNot == 0)
 	{
 		printf("Can't find file! Frame will not be added\n");
@@ -92,16 +93,19 @@ void addFrameNode(FrameNode** head)
 		free(newNode->frame);
 		free(newNode);
 	}
+	// if the path is valid we will ad the frame.
 	else
 	{
+		// if the list is empty wr eill make the new frame the first in the list.
 		if(*head == NULL)
 		{
 			*head = newNode;
 		}
+		//if the list isn't empty we will add the new frame node to the end of the list.
 		else
 		{
 			FrameNode* lastNode = *head;
-			while(lastNode->next != NULL)
+			while(lastNode->next)
 			{
 				lastNode = lastNode->next;
 			}
@@ -121,9 +125,63 @@ void printFrames(FrameNode* head)
 	printf("Name     Duration     Path\n");
 	while(curr)
 	{
-		printf("%s     ", curr->frame->name);
-		printf("%u", curr->frame->duration);
+		printf("%s        ", curr->frame->name);
+		printf("%u ms", curr->frame->duration);
 		printf("     %s\n", curr->frame->path);
 		curr = curr->next;
 	}
+}
+
+/*
+This function free all the allocated memory and the linked list.
+input: poniter to the pointer of the head of the function.
+output: none.
+*/
+void freeList(FrameNode** head)
+{
+	FrameNode* curr = *head;
+	FrameNode* temp = NULL;
+	while (curr)
+	{
+		// freeing the name, path , the frame it self and them the node.
+		temp = curr->next;
+		free(curr->frame->name);
+		free(curr->frame->path);
+		free(curr->frame);
+		free(curr);
+		curr = temp;
+	}
+	*head = NULL;
+}
+
+int deleteFrame(FrameNode** head, char* nameOfFrame)
+{
+	FrameNode* p = *head;
+	FrameNode* dNode = NULL;
+	int exists = 0;
+	if (*head)
+	{
+		if (0 == strcmp((*head)->frame->name, nameOfFrame))
+		{
+			*head = (*head)->next;
+			free(p);
+			exists++;
+		}
+		else
+		{
+			while (p->next && 0 != strcmp(p->next->frame->name, nameOfFrame))
+			{
+				p = p->next;
+
+			}
+			if (p->next)
+			{
+				dNode = p->next;
+				p->next = dNode->next;
+				free(dNode);
+				exists++;
+			}
+		}
+	}
+	return exists;
 }

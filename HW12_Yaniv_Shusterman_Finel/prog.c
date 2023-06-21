@@ -18,20 +18,31 @@ void printMenu();
 int main(void)
 {
 	int choiceMenu = 1, loadOrSave = 0;
+	char nameFrame[STR_LEN] = { 0 };
+	int exists = 0;
 	FrameNode* head = NULL;
 	printf("Welcome to Magshimim Movie Maker! what would you like to do?\n");
-	
+	printf(" [0] Create a new project\n [1] Load existing project\n");
+	scanf("%d", &loadOrSave);
+	getchar();
 	do
 	{
-		printf(" [0] Create a new project\n [1] Load existing project\n");
-		scanf("%d", &loadOrSave);
-		getchar();
-		if (loadOrSave > 1 || loadOrSave < 0)
+		switch (loadOrSave)
 		{
+		case 0:
+			printf("\n");
+			break;
+		case 1:
+			printf("\n");
+			break;
+		default:
 			printf("Invalid choice, try again:\n");
+			printf(" [0] Create a new project\n [1] Load existing project\n");
+			scanf("%d", &loadOrSave);
+			getchar();
+			break;
 		}
-	} 
-	while (loadOrSave > 1 || loadOrSave < 0);
+	} while (loadOrSave < 0 || loadOrSave > 1);
 
 	do
 	{
@@ -44,7 +55,21 @@ int main(void)
 				choiceMenu = 0;
 				break;
 			case 1:
+				printf("*** Creating new frame ***\n");
 				addFrameNode(&head);
+				break;
+			case 2:
+				printf("Enter the name of the frame you wish to erase\n");
+				myFgets(nameFrame, STR_LEN);
+				exists = deleteFrame(&head, nameFrame);
+				if(exists == 0)
+				{
+					printf("The frame was not found\n");
+				}
+				else
+				{
+					printf("\n");
+				}
 				break;
 			case 6:
 				printFrames(head);
@@ -53,11 +78,10 @@ int main(void)
 				printf("You should type one of the options - 0-8!\n");
 				break;
 		}
-
-
-
 	} while (choiceMenu != 0);
-
+	printf("\nBye!");
+	freeList(&head);
+	getchar();
 	return 0;
 }
 
@@ -66,5 +90,5 @@ This function print the menu of project.
 */
 void printMenu()
 {
-	printf("What would you like to do?\n\n[0] Exit\n[1] Add new Frame\n[2] Remove a Frame\n[3] Change frame index\n[4] Change frame duration\n[5] Change duration of all frames\n[6] List frames\n[7] Play movie!\n[8] Save project\n");
+	printf("\nWhat would you like to do?\n\n[0] Exit\n[1] Add new Frame\n[2] Remove a Frame\n[3] Change frame index\n[4] Change frame duration\n[5] Change duration of all frames\n[6] List frames\n[7] Play movie!\n[8] Save project\n");
 }
