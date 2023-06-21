@@ -92,7 +92,12 @@ int main(void)
 					changeDuration(&head, newDuration, nameFrame);
 				}
 				break;
-			case 5: 
+			case 5:
+				//change the duration of all of the frames in the linked list.
+				printf("Enter the duration for all frames:\n");
+				scanf("%u", &newDuration);
+				getchar();
+				changeAllDuration(&head, newDuration);
 				break;
 			case 6:
 				//printing the frames.
@@ -116,5 +121,5 @@ This function print the menu of project.
 */
 void printMenu()
 {
-	printf("\nWhat would you like to do?\n\n[0] Exit\n[1] Add new Frame\n[2] Remove a Frame\n[3] Change frame index\n[4] Change frame duration\n[5] Change duration of all frames\n[6] List frames\n[7] Play movie!\n[8] Save project\n");
+	printf("\nWhat would you like to do?\n[0] Exit\n[1] Add new Frame\n[2] Remove a Frame\n[3] Change frame index\n[4] Change frame duration\n[5] Change duration of all frames\n[6] List frames\n[7] Play movie!\n[8] Save project\n");
 }

@@ -154,7 +154,6 @@ void freeList(FrameNode** head)
 	*head = NULL;
 }
 
-
 /*
 This function deletes a frame from the linked list of frames.
 input: head - pointer to the pointer of the head of the list.
@@ -219,8 +218,18 @@ void changeDuration(FrameNode** head, unsigned int newDuration, char* nameFrame)
 	}
 }
 
-/**/
+/*
+This function chenges the duration of all of the frames in the list to the new duration.
+input: head - pointer to the pointer of the first frame in the list.
+		newDuration - the new duration of all of the frames.
+output: none.
+*/
 void changeAllDuration(FrameNode** head, int newDuration)
 {
-
+	FrameNode* curr = *head;
+	while(curr)
+	{
+		curr->frame->duration = newDuration;
+		curr = curr->next;
+	}
 }
