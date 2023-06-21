@@ -18,7 +18,7 @@ void printMenu();
 
 int main(void)
 {
-	int choiceMenu = 1, loadOrNew = 0, exists = 0;
+	int choiceMenu = 1, loadOrNew = 0, exists = 0, index = 0;
 	unsigned int newDuration = 0;
 	char nameFrame[STR_LEN] = { 0 };
 	FrameNode* head = NULL;
@@ -76,6 +76,14 @@ int main(void)
 				{
 					printf("\n");
 				}
+				break;
+			case 3:
+				printf("Enter the name of the frame\n");
+				myFgets(nameFrame, STR_LEN);
+				printf("Enter the new index in the movie you wish to place the frame\n");
+				scanf("%d", &index);
+				getchar();
+				changeFramePosition(&head, index, nameFrame);
 				break;
 			case 4:
 				// changing the duration of a specific frame.

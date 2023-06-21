@@ -23,14 +23,11 @@ typedef struct FrameNode
 
 void addFrameNode(FrameNode** head);
 int deleteFrame(FrameNode** head, char* nameOfFrame);
-//FrameNode* findFrame(FrameNode* head);
-//FrameNode* deleteFrame(FrameNode* head);
-//FrameNode* changeFramePosition(FrameNode* head, int newLocation);
+void changeFramePosition(FrameNode** head, int newLocation, char* frameToMove);
 void changeDuration(FrameNode** head,unsigned int newDuration, char* nameFrame);
 void changeAllDuration(FrameNode** head, int newDuration);
 void printFrames(FrameNode* head);
 void myFgets(char str[], int n);
 int checkIfInList(char* name, FrameNode* head);
 void freeList(FrameNode** head);
-
 #endif

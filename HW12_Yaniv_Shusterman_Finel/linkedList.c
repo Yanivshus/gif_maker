@@ -233,3 +233,60 @@ void changeAllDuration(FrameNode** head, int newDuration)
 		curr = curr->next;
 	}
 }
+
+/**/
+void changeFramePosition(FrameNode** head, int newLocation, char* frameToMove)
+{
+	FrameNode* curr = *head;
+	FrameNode* nodeToMove = NULL;
+	FrameNode* prev = NULL;
+	int index = 1;
+	// looping throghe the linked list until i found the node im moving and the one before it.
+	while(curr && strcmp(curr->frame->name, frameToMove) != 0)
+	{
+		prev = curr;
+		curr = curr->next;
+	}
+	nodeToMove = curr;
+	// if the node that i want to move is found and the one before it we will connect the on before it to the one that after the one i need to move.
+	if(curr != NULL && prev != NULL)
+	{
+		prev->next = curr->next;
+	}
+	// if only the node i need was found and there is not a previous node, that means the node i need is the head and i remove the head.
+	else if(curr != NULL)
+	{
+		*head = (*head)->next;
+	}
+	prev = NULL;
+	curr = (*head);
+	// if the node to move exists and the list isn't empty we will make the switch.
+	if(nodeToMove != NULL && *head != NULL)
+	{
+		// finding the new previous node and current node in the place of the index that the user entered.
+		while(curr && index != newLocation)
+		{
+			prev = curr;
+			curr = curr->next;
+			index++;
+		}
+		// if the prev exists we will concat the list we the node we want to move in his new place.
+		if(prev != NULL)
+		{
+			prev->next = nodeToMove;
+			nodeToMove->next = curr;
+		}
+		// of the prev doesn't exists that means the node we wont to move we go before the head.
+		else if(*head)
+		{
+			nodeToMove->next = *head;
+			*head = nodeToMove;
+		}
+	}
+	// if the node to move exits but the list is empty we will make it the first one.
+	else if(nodeToMove != NULL)
+	{
+		*head = nodeToMove;
+	}
+
+}
