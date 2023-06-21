@@ -17,9 +17,9 @@ void printMenu();
 
 int main(void)
 {
-	int choiceMenu = 1, loadOrSave = 0;
+	int choiceMenu = 1, loadOrSave = 0, exists = 0;
+	unsigned int newDuration = 0;
 	char nameFrame[STR_LEN] = { 0 };
-	int exists = 0;
 	FrameNode* head = NULL;
 	printf("Welcome to Magshimim Movie Maker! what would you like to do?\n");
 	printf(" [0] Create a new project\n [1] Load existing project\n");
@@ -55,13 +55,16 @@ int main(void)
 				choiceMenu = 0;
 				break;
 			case 1:
+				// creating a new node.
 				printf("*** Creating new frame ***\n");
 				addFrameNode(&head);
 				break;
 			case 2:
+				// delteing a node.
 				printf("Enter the name of the frame you wish to erase\n");
 				myFgets(nameFrame, STR_LEN);
 				exists = deleteFrame(&head, nameFrame);
+				// checking if the node exists.
 				if(exists == 0)
 				{
 					printf("The frame was not found\n");
@@ -71,15 +74,38 @@ int main(void)
 					printf("\n");
 				}
 				break;
+			case 4:
+				// changing the duration of a specific frame.
+				printf("enter the name of the frame\n");
+				myFgets(nameFrame, STR_LEN);
+				exists = checkIfInList(nameFrame, head);
+				//checking if the frame exists.
+				if(exists == 0)
+				{
+					printf("The frame does not exist\n");
+				}
+				else
+				{
+					printf("Enter the new duration\n");
+					scanf("%u", &newDuration);
+					getchar();
+					changeDuration(&head, newDuration, nameFrame);
+				}
+				break;
+			case 5: 
+				break;
 			case 6:
+				//printing the frames.
 				printFrames(head);
 				break;
 			default:
+				//didn't type the choice number right.
 				printf("You should type one of the options - 0-8!\n");
 				break;
 		}
 	} while (choiceMenu != 0);
 	printf("\nBye!");
+	// freeing all the linked list.
 	freeList(&head);
 	getchar();
 	return 0;

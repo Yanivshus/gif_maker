@@ -154,13 +154,22 @@ void freeList(FrameNode** head)
 	*head = NULL;
 }
 
+
+/*
+This function deletes a frame from the linked list of frames.
+input: head - pointer to the pointer of the head of the list.
+		nameOfFrame - the name of the frame i wan't to delete.
+output: 1 if the frame exist in the linked list and 0 if not.
+*/
 int deleteFrame(FrameNode** head, char* nameOfFrame)
 {
 	FrameNode* p = *head;
 	FrameNode* dNode = NULL;
 	int exists = 0;
+	// checking if the list is empty.
 	if (*head)
 	{
+		// checking if frame i wan't to delete is in the first node of the linked list.
 		if (0 == strcmp((*head)->frame->name, nameOfFrame))
 		{
 			*head = (*head)->next;
@@ -169,11 +178,13 @@ int deleteFrame(FrameNode** head, char* nameOfFrame)
 		}
 		else
 		{
+			// looping throush the list until i get to the name of the frame or the list ends.
 			while (p->next && 0 != strcmp(p->next->frame->name, nameOfFrame))
 			{
 				p = p->next;
 
 			}
+			// if frame was found i will delete it.
 			if (p->next)
 			{
 				dNode = p->next;
@@ -184,4 +195,32 @@ int deleteFrame(FrameNode** head, char* nameOfFrame)
 		}
 	}
 	return exists;
+}
+
+/*
+This function changes the duration of a specific frame is he exists in the linked list.
+input: head - pointer to the pointer to the linked list head.
+		newDuration - the new duration of the frame.
+		nameFrame - the name of the specific frame im looking for.
+output: none.
+*/
+void changeDuration(FrameNode** head, unsigned int newDuration, char* nameFrame)
+{
+	FrameNode* curr = *head;
+	while(curr)
+	{
+		// checking if the name equel to the name is need.
+		if(strcmp(curr->frame->name, nameFrame) == 0)
+		{
+			// checnging the duration.
+			curr->frame->duration = newDuration;
+		}
+		curr = curr->next;
+	}
+}
+
+/**/
+void changeAllDuration(FrameNode** head, int newDuration)
+{
+
 }
