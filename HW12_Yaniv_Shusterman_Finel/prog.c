@@ -25,6 +25,7 @@ int main(void)
 	{
 		printf(" [0] Create a new project\n [1] Load existing project\n");
 		scanf("%d", &loadOrSave);
+		getchar();
 		if (loadOrSave > 1 || loadOrSave < 0)
 		{
 			printf("Invalid choice, try again:\n");
@@ -36,12 +37,18 @@ int main(void)
 	{
 		printMenu();
 		scanf("%d", &choiceMenu);
+		getchar();
 		switch (choiceMenu)
 		{
+			case 0:
+				choiceMenu = 0;
+				break;
 			case 1:
 				addFrameNode(&head);
 				break;
-
+			case 6:
+				printFrames(head);
+				break;
 			default:
 				printf("You should type one of the options - 0-8!\n");
 				break;

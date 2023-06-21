@@ -8,7 +8,7 @@
 
 /*
 this is a function to get a string from the user , it gets the size of the string and the char array
-and gets the string and adds a null terminator at his and so he will be a string.
+and gets the string and adds a null terminator at his end so he will be a string.
 */
 void myFgets(char str[], int n)
 {
@@ -48,12 +48,9 @@ void addFrameNode(FrameNode** head)
 	FrameNode* newNode = (FrameNode*)malloc(sizeof(FrameNode));
 	newNode->frame = (Frame*)malloc(sizeof(Frame));
 	// mallocating memory for the name of the frame and it's path.
-	newNode->frame->name = (char*)malloc(STR_LEN);
-	newNode->frame->path = (char*)malloc(STR_LEN);
-	// checking if the malloces worked.
-	// || newNode->frame ||newNode->frame->name || newNode->frame->path
-	// problem with the mallocs
-	if(newNode)
+	newNode->frame->name = (char*)malloc(STR_LEN * sizeof(char));
+	newNode->frame->path = (char*)malloc(STR_LEN * sizeof(char));
+	if(newNode == NULL || newNode->frame == NULL ||newNode->frame->name == NULL || newNode->frame->path == NULL)
 	{
 		printf("malloc didn't worked! (createNode)");
 	}
@@ -62,26 +59,28 @@ void addFrameNode(FrameNode** head)
 		printf("Please insert frame path:\n");
 		myFgets(newNode->frame->path, STR_LEN);
 		// chacking if the file exists.
-		if(fopen(newNode->frame->path, "rb") != NULL)
+		if(frameFile = fopen(newNode->frame->path, "rb"))
 		{
 			pathValidOrNot++;
+			printf("vsddfbd");
 		}
 
 		//gettting the duration from the user.
 		printf("Please insert frame duration(in milliseconds):\n");
-		scanf("%u", newNode->frame->duration);
+		scanf("%u", &(newNode->frame->duration));
 		getchar();
 
 		printf("Please choose a name for that frame: \n");
 		myFgets(newNode->frame->name, STR_LEN);
 		nameValidOrNot = checkIfInList(newNode->frame->name, *head);
 		// checking if name is already on the list, if yes it will ask the user to enter other name.
-		while (nameValidOrNot == 0)
+		while (nameValidOrNot != 0)
 		{
 			printf("The name is already taken, please enter another name\n");
 			myFgets(newNode->frame->name, STR_LEN);
 			nameValidOrNot = checkIfInList(newNode->frame->name, *head);
 		}
+
 		newNode->next = NULL;
 	}
 
@@ -90,6 +89,7 @@ void addFrameNode(FrameNode** head)
 		printf("Can't find file! Frame will not be added\n");
 		free(newNode->frame->name);
 		free(newNode->frame->path);
+		free(newNode->frame);
 		free(newNode);
 	}
 	else
@@ -101,12 +101,10 @@ void addFrameNode(FrameNode** head)
 		else
 		{
 			FrameNode* lastNode = *head;
-
 			while(lastNode->next != NULL)
 			{
 				lastNode = lastNode->next;
 			}
-
 			lastNode->next = newNode;
 		}
 	}
@@ -120,12 +118,12 @@ output: none.
 void printFrames(FrameNode* head)
 {
 	FrameNode* curr = head;
-	printf("Name     Duration     Path");
+	printf("Name     Duration     Path\n");
 	while(curr)
 	{
 		printf("%s     ", curr->frame->name);
-		printf("%d", curr->frame->duration);
-		printf("     %s", curr->frame->path);
+		printf("%u", curr->frame->duration);
+		printf("     %s\n", curr->frame->path);
 		curr = curr->next;
 	}
 }
