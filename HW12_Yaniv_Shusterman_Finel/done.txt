@@ -1,0 +1,5 @@
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\1.png,120,1
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\2.png,120,2
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\3.png,120,3
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\4.png,120,4
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\5.png,120,5
