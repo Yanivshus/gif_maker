@@ -13,15 +13,18 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdlib.h>
+#include "saveGif.h"
 
 void printMenu();
 
 int main(void)
 {
-	int choiceMenu = 1, loadOrNew = 0, exists = 0, index = 0, listLength = 0;
+	int choiceMenu = 1, exists = 0, index = 0, listLength = 0, loadOrNew = 0;
 	unsigned int newDuration = 0;
 	char nameFrame[STR_LEN] = { 0 };
+	char pathString[STR_LEN] = { 0 };
 	FrameNode* head = NULL;
+	printf("Welcome to Magshimim Movie Maker! what would you like to do?");
 	printf("Welcome to Magshimim Movie Maker! what would you like to do?\n");
 	printf(" [0] Create a new project\n [1] Load existing project\n");
 	scanf("%d", &loadOrNew);
@@ -32,10 +35,10 @@ int main(void)
 		switch (loadOrNew)
 		{
 		case 0:
-			printf("\n");
+			printf("Working on a new project.\n");
 			break;
 		case 1:
-			printf("\n");
+			head = loadGif("C:\\Users\\Magshimim\\Desktop\\a.txt");
 			break;
 		default:
 			// if the user entered the invalid unput it will ask him again 1 or 0.
@@ -139,6 +142,11 @@ int main(void)
 			case 7:
 				// playing the video.
 				play(head);
+				break;
+			case 8:
+				printf("Where to save the project? enter a full path and file name\n");
+				myFgets(pathString, STR_LEN);
+				saveGif(&head, pathString);
 				break;
 			default:
 				//didn't type the choice number right.
