@@ -24,6 +24,7 @@ int main(void)
 	char nameFrame[STR_LEN] = { 0 };
 	char pathString[STR_LEN] = { 0 };
 	FrameNode* head = NULL;
+	FILE* loadTry = NULL;
 	printf("Welcome to Magshimim Movie Maker! what would you like to do?");
 	printf("Welcome to Magshimim Movie Maker! what would you like to do?\n");
 	printf(" [0] Create a new project\n [1] Load existing project\n");
@@ -38,7 +39,19 @@ int main(void)
 			printf("Working on a new project.\n");
 			break;
 		case 1:
-			head = loadGif("C:\\Users\\Magshimim\\Desktop\\a.txt");
+			printf("Enter the path of the project (including project name):\n");
+			myFgets(pathString, STR_LEN);
+			loadTry = fopen(pathString, "r");
+			if(loadTry == NULL)
+			{
+				printf("Error!- cant open file, creating a new project\n");
+				head = NULL;
+			}
+			else
+			{
+				fclose(loadTry);
+				head = loadGif(pathString);
+			}
 			break;
 		default:
 			// if the user entered the invalid unput it will ask him again 1 or 0.

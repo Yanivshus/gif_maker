@@ -26,44 +26,60 @@ void saveGif(FrameNode** head, char* path)
 	fclose(fileToSave);
 }
 
-/**/
+/*
+This function loads a file like csv and 
+
+*/
 FrameNode* loadGif(char* pathFile)
 {
 	FILE* inputFile = fopen(pathFile, "r");
+	int sizeFile = 0;
+	FrameNode* head = NULL;
+	char line[STR_LEN] = { 0 };
 	if(inputFile == NULL)
 	{
 		printf("The file opening didn't worked!");
 	}
-	FrameNode* head = NULL;
-	char line[STR_LEN] = { 0 };
-	fseek(inputFile, 0, SEEK_SET);
-	while (fgets(line, sizeof(line), inputFile))
+	else
 	{
-		FrameNode* newNode = (FrameNode*)malloc(sizeof(FrameNode));
-		newNode->frame = (Frame*)malloc(sizeof(Frame));
-		// mallocating memory for the name of the frame and it's path.
-		newNode->frame->name = (char*)malloc(STR_LEN * sizeof(char));
-		newNode->frame->path = (char*)malloc(STR_LEN * sizeof(char));
-		sscanf(line, "%[^,],%u,%[^,]\n", newNode->frame->path, &(newNode->frame->duration), newNode->frame->name);
-		printf("%s\n", newNode->frame->path);
-		printf("%d\n", newNode->frame->duration);
-		printf("%s\n", newNode->frame->name);
-		newNode->next = NULL;
-		// if the list is empty wr eill make the new frame the first in the list.
-		if (head == NULL)
+		
+		fseek(inputFile, 0, SEEK_END);
+		sizeFile = ftell(inputFile);
+		if (sizeFile == 0)
 		{
-			head = newNode;
+			printf("The file is empty :( starting new project!\n");
 		}
-		//if the list isn't empty we will add the new frame node to the end of the list.
 		else
 		{
-			FrameNode* lastNode = head;
-			while (lastNode->next)
+			fseek(inputFile, 0, SEEK_SET);
+			while (fgets(line, sizeof(line), inputFile))
 			{
-				lastNode = lastNode->next;
+				FrameNode* newNode = (FrameNode*)malloc(sizeof(FrameNode));
+				newNode->frame = (Frame*)malloc(sizeof(Frame));
+				// mallocating memory for the name of the frame and it's path.
+				newNode->frame->name = (char*)malloc(STR_LEN * sizeof(char));
+				newNode->frame->path = (char*)malloc(STR_LEN * sizeof(char));
+				sscanf(line, "%[^,],%u,%[^\n]", newNode->frame->path, &(newNode->frame->duration), newNode->frame->name);
+				newNode->next = NULL;
+				// if the list is empty we will make the new frame the first in the list.
+				if (head == NULL)
+				{
+					head = newNode;
+				}
+				//if the list isn't empty we will add the new frame node to the end of the list.
+				else
+				{
+					FrameNode* lastNode = head;
+					while (lastNode->next)
+					{
+						lastNode = lastNode->next;
+					}
+					lastNode->next = newNode;
+				}
 			}
-			lastNode->next = newNode;
+			printf("Project loaded successfully\n");
 		}
 	}
+	fclose(inputFile);
 	return head;
 }
