@@ -25,29 +25,30 @@ int main(void)
 	char pathString[STR_LEN] = { 0 };
 	FrameNode* head = NULL;
 	FILE* loadTry = NULL;
-	printf("Welcome to Magshimim Movie Maker! what would you like to do?");
 	printf("Welcome to Magshimim Movie Maker! what would you like to do?\n");
 	printf(" [0] Create a new project\n [1] Load existing project\n");
-	scanf("%d", &loadOrNew);
-	getchar();
 	// checking if the user want to load the project or create a new one.
 	do
 	{
+		scanf("%d", &loadOrNew);
+		getchar();
 		switch (loadOrNew)
 		{
 		case 0:
+			// if the user entered 0 that means that he want to create new project.
 			printf("Working on a new project.\n");
 			break;
 		case 1:
 			printf("Enter the path of the project (including project name):\n");
 			myFgets(pathString, STR_LEN);
 			loadTry = fopen(pathString, "r");
+			// checking if the file exits.
 			if(loadTry == NULL)
 			{
 				printf("Error!- cant open file, creating a new project\n");
 				head = NULL;
 			}
-			else
+			else// if exists then we will load it.
 			{
 				fclose(loadTry);
 				head = loadGif(pathString);
@@ -57,8 +58,6 @@ int main(void)
 			// if the user entered the invalid unput it will ask him again 1 or 0.
 			printf("Invalid choice, try again:\n");
 			printf(" [0] Create a new project\n [1] Load existing project\n");
-			scanf("%d", &loadOrNew);
-			getchar();
 			break;
 		}
 	} while (loadOrNew < 0 || loadOrNew > 1);

@@ -27,8 +27,9 @@ void saveGif(FrameNode** head, char* path)
 }
 
 /*
-This function loads a file like csv and 
-
+This function loads a file like csv and make its contect to a linked list of frames , each frame got: name , duration and path.
+input: pathFile - path of a file im going to read from.
+output: pointer to a linked list of frames.
 */
 FrameNode* loadGif(char* pathFile)
 {
@@ -36,23 +37,23 @@ FrameNode* loadGif(char* pathFile)
 	int sizeFile = 0;
 	FrameNode* head = NULL;
 	char line[STR_LEN] = { 0 };
-	if(inputFile == NULL)
+	if(inputFile == NULL)// cecking if there is a problem with the file.
 	{
 		printf("The file opening didn't worked!");
 	}
 	else
 	{
-		
 		fseek(inputFile, 0, SEEK_END);
-		sizeFile = ftell(inputFile);
+		sizeFile = ftell(inputFile);// cecking file length.
+		// checking if the file is empty or not.
 		if (sizeFile == 0)
 		{
 			printf("The file is empty :( starting new project!\n");
 		}
-		else
+		else// if yes we will load it.
 		{
-			fseek(inputFile, 0, SEEK_SET);
-			while (fgets(line, sizeof(line), inputFile))
+			fseek(inputFile, 0, SEEK_SET); // moving the arrow to the start of the file.
+			while (fgets(line, sizeof(line), inputFile))// moving line by line on the file.
 			{
 				FrameNode* newNode = (FrameNode*)malloc(sizeof(FrameNode));
 				newNode->frame = (Frame*)malloc(sizeof(Frame));
