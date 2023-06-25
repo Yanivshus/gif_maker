@@ -31,5 +31,6 @@ void myFgets(char str[], int n);
 int checkIfInList(char* name, FrameNode* head);
 void freeList(FrameNode** head);
 int findListLength(FrameNode** head);
+FrameNode* reverseTheList(FrameNode* head);
 
 #endif

@@ -160,9 +160,13 @@ int main(void)
 				myFgets(pathString, STR_LEN);
 				saveGif(&head, pathString);
 				break;
+			case 9:
+				head = reverseTheList(head);
+				play(head);
+				head = reverseTheList(head);
 			default:
 				//didn't type the choice number right.
-				printf("You should type one of the options - 0-8!\n");
+				printf("You should type one of the options - 0-9!\n");
 				break;
 		}
 	} while (choiceMenu != 0);
@@ -178,5 +182,5 @@ This function print the menu of project.
 */
 void printMenu()
 {
-	printf("\nWhat would you like to do?\n[0] Exit\n[1] Add new Frame\n[2] Remove a Frame\n[3] Change frame index\n[4] Change frame duration\n[5] Change duration of all frames\n[6] List frames\n[7] Play movie!\n[8] Save project\n");
+	printf("\nWhat would you like to do?\n[0] Exit\n[1] Add new Frame\n[2] Remove a Frame\n[3] Change frame index\n[4] Change frame duration\n[5] Change duration of all frames\n[6] List frames\n[7] Play movie!\n[8] Save project\n[9] Play gif from end to start\n");
 }

@@ -317,3 +317,29 @@ int findListLength(FrameNode** head)
 	}
 	return length;
 }
+
+/*
+This function reversing the linked list , the first one becomes the last and the last one becomes the first.
+input: head - pointer to the first node in the list.
+output: pointer to the reversed list.
+*/
+FrameNode* reverseTheList(FrameNode* head)
+{
+	FrameNode* before = NULL;
+	FrameNode* tmp = head;
+	FrameNode* next = NULL;
+
+	while (tmp)
+	{
+		// switch the pointers.
+		next = tmp->next;
+		tmp->next = before;
+		// move one position in the list.
+		before = tmp;
+		tmp = next;
+	}
+	//the last is the head.
+	head = before;
+	return head;
+
+}
