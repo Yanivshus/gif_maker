@@ -14,7 +14,6 @@
 #include "LinkedList.h"
 
 #define GIF_REPEAT 5
-
 void play(FrameNode* list);
 
 #endif
