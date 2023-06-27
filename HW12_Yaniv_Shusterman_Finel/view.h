@@ -15,5 +15,5 @@
 
 #define GIF_REPEAT 5
 void play(FrameNode* list);
-
+void turnToBlackWhite(char* name, FrameNode** head);
 #endif

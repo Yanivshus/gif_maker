@@ -164,6 +164,22 @@ int main(void)
 				head = reverseTheList(head);
 				play(head);
 				head = reverseTheList(head);
+			case 10:
+				// changing the duration of a specific frame.
+				printf("enter the name of the frame\n");
+				myFgets(nameFrame, STR_LEN);
+				exists = checkIfInList(nameFrame, head);
+				if(exists == 1)
+				{
+					turnToBlackWhite(nameFrame, &head);
+					printf("Filter applied!\n");
+				}
+				else
+				{
+					printf("The frame does not exist\n");
+				}
+					
+				break;
 			default:
 				//didn't type the choice number right.
 				printf("You should type one of the options - 0-9!\n");
@@ -182,5 +198,5 @@ This function print the menu of project.
 */
 void printMenu()
 {
-	printf("\nWhat would you like to do?\n[0] Exit\n[1] Add new Frame\n[2] Remove a Frame\n[3] Change frame index\n[4] Change frame duration\n[5] Change duration of all frames\n[6] List frames\n[7] Play movie!\n[8] Save project\n[9] Play gif from end to start\n");
+	printf("\nWhat would you like to do?\n[0] Exit\n[1] Add new Frame\n[2] Remove a Frame\n[3] Change frame index\n[4] Change frame duration\n[5] Change duration of all frames\n[6] List frames\n[7] Play movie!\n[8] Save project\n[9] Play gif from end to start\n[10] Make a frame gray\n");
 }

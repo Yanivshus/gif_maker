@@ -4,7 +4,9 @@
 **********************************/
 
 #include "view.h"
+#include "linkedList.h"
 #include <stdio.h>
+#include <string.h>
 
 /**
 play the movie!!
@@ -43,4 +45,20 @@ void play(FrameNode* list)
 	}
 	cvDestroyWindow("Display window");
 	return;
+}
+
+void turnToBlackWhite(char* name, FrameNode** head)
+{
+	FrameNode* curr = *head;
+	while(curr != NULL && strcmp(curr->frame->name, name) != 0)
+	{
+		curr = curr->next;
+	}
+	IplImage* image = cvLoadImage(curr->frame->path, CV_LOAD_IMAGE_GRAYSCALE);
+	if (image == NULL) 
+	{
+		printf("Could not open or find the image!\n");
+	}
+	cvSaveImage(curr->frame->path, image, 0);
+	cvReleaseImage(&image);
 }
