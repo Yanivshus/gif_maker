@@ -168,17 +168,7 @@ int main(void)
 				// changing the duration of a specific frame.
 				printf("enter the name of the frame\n");
 				myFgets(nameFrame, STR_LEN);
-				exists = checkIfInList(nameFrame, head);
-				if(exists == 1)
-				{
-					turnToBlackWhite(nameFrame, &head);
-					printf("Filter applied!\n");
-				}
-				else
-				{
-					printf("The frame does not exist\n");
-				}
-					
+				applyFilter(nameFrame, &head);
 				break;
 			default:
 				//didn't type the choice number right.

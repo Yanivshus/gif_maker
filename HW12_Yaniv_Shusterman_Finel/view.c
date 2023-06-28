@@ -47,18 +47,36 @@ void play(FrameNode* list)
 	return;
 }
 
-void turnToBlackWhite(char* name, FrameNode** head)
+/*
+This function turn an image from the linked list to be black and white instead of colorful.
+input: name - name of image to turn to black and white.
+		head - pointer to the pointer that points to the head of the linked list.
+output: none.
+*/
+void applyFilter(char* name, FrameNode** head)
 {
 	FrameNode* curr = *head;
+	// finding the frame to turn gray.
 	while(curr != NULL && strcmp(curr->frame->name, name) != 0)
 	{
 		curr = curr->next;
 	}
-	IplImage* image = cvLoadImage(curr->frame->path, CV_LOAD_IMAGE_GRAYSCALE);
-	if (image == NULL) 
+	// chcking if frame was found.
+	if(curr != NULL)
 	{
-		printf("Could not open or find the image!\n");
+		// loading it as gray.
+		IplImage* image = cvLoadImage(curr->frame->path, CV_LOAD_IMAGE_GRAYSCALE);
+		if (image == NULL) 
+		{
+			printf("Could not open or find the image!\n");
+		}
+		// saving it back to the same path it was but now as gray.
+		cvSaveImage(curr->frame->path, image, 0);
+		cvReleaseImage(&image);
 	}
-	cvSaveImage(curr->frame->path, image, 0);
-	cvReleaseImage(&image);
+	else// if wasn't found.
+	{
+		printf("The frame does not exist\n");
+	}
+
 }
