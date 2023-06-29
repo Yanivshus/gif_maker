@@ -7,7 +7,8 @@
 #include "linkedList.h"
 #include <stdio.h>
 #include <string.h>
-
+int buttonPressed = 0;
+CvRect buttonRect;
 /**
 play the movie!!
 display the images each for the duration of the frame one by one and close the window
@@ -20,7 +21,31 @@ void play(FrameNode* list)
 	FrameNode* head = list;
 	int imgNum = 1, playCount = 0;
 	IplImage* image;
-	while (playCount < GIF_REPEAT)
+
+	// Create a window
+	cvNamedWindow("Stop button", CV_WINDOW_NORMAL);
+	cvResizeWindow("Stop button", 35, 35);
+	// Set the callback function for mouse events
+	cvSetMouseCallback("Stop button", mouseCallback, NULL);
+	// Initialize button properties
+	buttonRect = cvRect(100, 100, 200, 100);
+	// Create a black background image
+	IplImage* imageButton = cvCreateImage(cvSize(275, 250), IPL_DEPTH_8U, 3);
+	cvSet(imageButton, CV_RGB(0, 0, 0), NULL);
+
+	// Draw the button shape
+	cvRectangle(imageButton, cvPoint(buttonRect.x, buttonRect.y),
+		cvPoint(buttonRect.x + buttonRect.width, buttonRect.y + buttonRect.height),
+		CV_RGB(255, 0, 0), CV_FILLED, CV_AA, 0);
+
+	// Draw button text
+	CvFont font;
+	cvInitFont(&font, CV_FONT_HERSHEY_SIMPLEX, 1.5, 1.5, 0, 2, CV_AA);
+	cvPutText(imageButton, "STOP!", cvPoint(buttonRect.x + 50, buttonRect.y + 60), &font, CV_RGB(0, 0, 0));
+	// Display the image of button
+	cvShowImage("Stop button", imageButton);
+
+	while (buttonPressed == 0)
 	{
 		while (list != 0)
 		{
@@ -43,7 +68,11 @@ void play(FrameNode* list)
 		list = head; // rewind
 		playCount++;
 	}
+	buttonPressed = 0;
+	cvReleaseImage(&imageButton);
 	cvDestroyWindow("Display window");
+	// Destroy the window
+	cvDestroyWindow("Stop button");
 	return;
 }
 
@@ -79,4 +108,20 @@ void applyFilter(char* name, FrameNode** head)
 		printf("The frame does not exist\n");
 	}
 
+}
+
+void mouseCallback(int event, int x, int y, int flags, void* userdata)
+{
+	// Check if left mouse button is pressed
+	if (event == CV_EVENT_LBUTTONDOWN)
+	{
+		// Check if the mouse click is within the button region
+		if (x >= buttonRect.x && x <= buttonRect.x + buttonRect.width &&
+			y >= buttonRect.y && y <= buttonRect.y + buttonRect.height)
+		{
+				// Set the button state to pressed
+			buttonPressed = 1;
+		}
+
+	}
 }
