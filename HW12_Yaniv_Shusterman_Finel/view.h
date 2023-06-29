@@ -13,7 +13,6 @@
 #include <opencv2\highgui\highgui_c.h>
 #include "LinkedList.h"
 
-#define GIF_REPEAT 5
 void play(FrameNode* list);
 void applyFilter(char* name, FrameNode** head);
 void mouseCallback(int event, int x, int y, int flags, void* userdata);

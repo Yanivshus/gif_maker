@@ -1,0 +1,16 @@
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\1.png,100,1
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\2.png,100,2
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\3.png,100,3
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\4.png,100,4
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\5.png,100,5
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\6.png,100,6
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\7.png,100,7
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\8.png,100,8
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\9.png,100,9
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\10.png,100,10
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\11.png,100,11
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\12.png,100,12
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\13.png,100,13
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\14.png,100,14
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\15.png,100,15
+C:\Users\Magshimim\Documents\Magshimim\C2\week12 - Final\photos\16.png,100,16

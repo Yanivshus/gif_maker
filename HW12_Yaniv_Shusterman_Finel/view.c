@@ -9,9 +9,11 @@
 #include <string.h>
 int buttonPressed = 0;
 CvRect buttonRect;
+
 /**
 play the movie!!
-display the images each for the duration of the frame one by one and close the window
+display the images each for the duration of the frame one by one infinitly.
+also displays a button to step the gif playing.
 input: a linked list of frames to display
 output: none
 **/
@@ -22,16 +24,17 @@ void play(FrameNode* list)
 	int imgNum = 1, playCount = 0;
 	IplImage* image;
 
-	// Create a window
+	// Create a window for button
 	cvNamedWindow("Stop button", CV_WINDOW_NORMAL);
-	cvResizeWindow("Stop button", 35, 35);
+	cvResizeWindow("Stop button", 15, 20);
 	// Set the callback function for mouse events
 	cvSetMouseCallback("Stop button", mouseCallback, NULL);
 	// Initialize button properties
-	buttonRect = cvRect(100, 100, 200, 100);
-	// Create a black background image
-	IplImage* imageButton = cvCreateImage(cvSize(275, 250), IPL_DEPTH_8U, 3);
-	cvSet(imageButton, CV_RGB(0, 0, 0), NULL);
+	buttonRect = cvRect(75, 75, 200, 75);
+
+	// Create a red background image
+	IplImage* imageButton = cvCreateImage(cvSize(300, 200), IPL_DEPTH_8U, 3);
+	cvSet(imageButton, CV_RGB(255, 0, 0), NULL);
 
 	// Draw the button shape
 	cvRectangle(imageButton, cvPoint(buttonRect.x, buttonRect.y),
@@ -41,10 +44,11 @@ void play(FrameNode* list)
 	// Draw button text
 	CvFont font;
 	cvInitFont(&font, CV_FONT_HERSHEY_SIMPLEX, 1.5, 1.5, 0, 2, CV_AA);
-	cvPutText(imageButton, "STOP!", cvPoint(buttonRect.x + 50, buttonRect.y + 60), &font, CV_RGB(0, 0, 0));
+	cvPutText(imageButton, "STOP!", cvPoint(buttonRect.x + 20, buttonRect.y + 30), &font, CV_RGB(255, 255, 255));
 	// Display the image of button
 	cvShowImage("Stop button", imageButton);
 
+	// loop will work until button was pressed.
 	while (buttonPressed == 0)
 	{
 		while (list != 0)
@@ -68,7 +72,7 @@ void play(FrameNode* list)
 		list = head; // rewind
 		playCount++;
 	}
-	buttonPressed = 0;
+	buttonPressed = 0;// reseting button for th next time it will be pressed.
 	cvReleaseImage(&imageButton);
 	cvDestroyWindow("Display window");
 	// Destroy the window
@@ -110,6 +114,13 @@ void applyFilter(char* name, FrameNode** head)
 
 }
 
+/*
+This function identify when the user is clicked on the button and updates the button veriable.
+input: x - the size of the button region in the x axis.
+		y - the size of the button region in the y axis.
+		event - stores if the button was clicked or not.
+output: none.
+*/
 void mouseCallback(int event, int x, int y, int flags, void* userdata)
 {
 	// Check if left mouse button is pressed

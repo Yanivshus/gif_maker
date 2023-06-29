@@ -161,9 +161,11 @@ int main(void)
 				saveGif(&head, pathString);
 				break;
 			case 9:
+				// reversing the list twice so it will play backwards and then go back to normal.
 				head = reverseTheList(head);
 				play(head);
 				head = reverseTheList(head);
+				break;
 			case 10:
 				// changing the duration of a specific frame.
 				printf("enter the name of the frame\n");
