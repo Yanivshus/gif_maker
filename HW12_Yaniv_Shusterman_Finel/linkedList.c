@@ -169,10 +169,14 @@ int deleteFrame(FrameNode** head, char* nameOfFrame)
 	// checking if the list is empty.
 	if (*head)
 	{
-		// checking if frame i wan't to delete is in the first node of the linked list.
+		// checking if frame i want to delete is in the first node of the linked list.
 		if (0 == strcmp((*head)->frame->name, nameOfFrame))
 		{
 			*head = (*head)->next;
+			// freeing all the node.
+			free(p->frame->name);
+			free(p->frame->path);
+			free(p->frame);
 			free(p);
 			exists++;
 		}
@@ -189,6 +193,10 @@ int deleteFrame(FrameNode** head, char* nameOfFrame)
 			{
 				dNode = p->next;
 				p->next = dNode->next;
+				// freeing all the node.
+				free(dNode->frame->name);
+				free(dNode->frame->path);
+				free(dNode->frame);
 				free(dNode);
 				exists++;
 			}

@@ -19,6 +19,7 @@ output: none
 **/
 void play(FrameNode* list)
 {
+	// part of the photo slide show.
 	cvNamedWindow("Display window", CV_WINDOW_AUTOSIZE); //create a window
 	FrameNode* head = list;
 	int imgNum = 1, playCount = 0;
