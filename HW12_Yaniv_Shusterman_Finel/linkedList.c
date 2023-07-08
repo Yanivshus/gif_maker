@@ -336,7 +336,6 @@ FrameNode* reverseTheList(FrameNode* head)
 	FrameNode* before = NULL;
 	FrameNode* tmp = head;
 	FrameNode* next = NULL;
-
 	while (tmp)
 	{
 		// switch the pointers.

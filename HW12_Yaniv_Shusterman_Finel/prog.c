@@ -162,9 +162,16 @@ int main(void)
 				break;
 			case 9:
 				// reversing the list twice so it will play backwards and then go back to normal.
-				head = reverseTheList(head);
-				play(head);
-				head = reverseTheList(head);
+				if(head == NULL)
+				{
+					printf("List is empty , can't play gif\n");
+				}
+				else
+				{
+					head = reverseTheList(head);
+					play(head);
+					head = reverseTheList(head);
+				}
 				break;
 			case 10:
 				// changing the duration of a specific frame.
