@@ -294,7 +294,7 @@ void changeFramePosition(FrameNode** head, int newLocation, char* frameToMove)
 			prev->next = nodeToMove;
 			nodeToMove->next = curr;
 		}
-		// of the prev doesn't exists that means the node we wont to move we go before the head.
+		// if the prev doesn't exists that means the node we want to move we go before the head.
 		else if(*head)
 		{
 			nodeToMove->next = *head;
