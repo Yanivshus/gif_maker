@@ -153,7 +153,16 @@ int main(void)
 				break;
 			case 7:
 				// playing the video.
-				play(head);
+				if(head == NULL)
+				{
+					printf("List is empty , can't play gif\n");
+				}
+				else
+				{
+					play(head);
+				}
+				
+				
 				break;
 			case 8:
 				printf("Where to save the project? enter a full path and file name\n");
